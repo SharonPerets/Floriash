@@ -17,16 +17,25 @@
 </head>
 <body>
 
-  <!-- Page Loader with Blueprint Assembly -->
+  <!-- Professional Assembly Loader -->
   <div class="page-loader" id="pageLoader">
     <div class="blueprint-assembly">
-      <div class="blueprint-line"></div>
-      <div class="blueprint-line"></div>
-      <div class="blueprint-line"></div>
-      <div class="blueprint-line"></div>
-      <div class="blueprint-center"></div>
-      <div class="blueprint-text">מרכיב מוצר...</div>
+      <!-- Kitchen Cabinet Assembly -->
+      <div class="cabinet-frame cabinet-base"></div>
+      
+      <!-- Cabinet Doors -->
+      <div class="cabinet-frame cabinet-door cabinet-door-left">
+        <div class="cabinet-handle handle-left"></div>
+      </div>
+      <div class="cabinet-frame cabinet-door cabinet-door-right">
+        <div class="cabinet-handle handle-right"></div>
+      </div>
+      
+      <!-- Interior Shelves -->
+      <div class="cabinet-shelf shelf-1"></div>
+      <div class="cabinet-shelf shelf-2"></div>
     </div>
+    <div class="blueprint-text">מרכיב את המוצר...</div>
   </div>
 
   <!-- Hero Section -->
@@ -58,7 +67,10 @@
       <p class="hero-description">
         מהרעיון למציאות - אני מלווה אותך בכל שלב של הדרך עם שרטוטים מדויקים והדמיות מרשימות בטכנולוגיה תעשייתית מתקדמת
       </p>
-      <a href="#contact" class="cta-button" id="ctaButton">// התחל פרויקט חדש</a>
+      <div class="cta-buttons">
+        <a href="#contact" class="cta-button primary" id="ctaButton">// התחל פרויקט חדש</a>
+        <a href="room-planner.html" class="cta-button secondary">🏠 מתכנן חדרים</a>
+      </div>
     </div>
   </section>
 

@@ -1,53 +1,149 @@
-// Assembly and Construction Effects
-function initiateAssemblySequence() {
-  const ctaButton = document.getElementById('ctaButton');
+// Professional Assembly and Animation System
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize professional assembly loader
+  initializeProfessionalLoader();
   
-  ctaButton.addEventListener('click', function(e) {
-    e.preventDefault();
+  // Initialize smooth animations
+  initializeSmoothAnimations();
+  
+  // Initialize CTA interactions
+  initializeCTAInteractions();
+  
+  // Initialize scroll effects
+  initializeScrollEffects();
+});
+
+// Professional Assembly Loader
+function initializeProfessionalLoader() {
+  const loader = document.getElementById('pageLoader');
+  
+  // Hide loader after assembly animation completes
+  setTimeout(() => {
+    loader.classList.add('hidden');
     
-    // Add assembly effect to button
-    this.classList.add('assembling');
-    this.textContent = '// מרכיב מערכת...';
-    
-    // Start page assembly sequence
+    // Start main content animations
     setTimeout(() => {
-      document.body.classList.add('page-assembling');
-      assemblePageComponents();
+      triggerContentAnimations();
     }, 500);
-    
-    // Navigate after assembly
+  }, 3500); // Match the total assembly animation duration
+}
+
+// Trigger content animations after loader
+function triggerContentAnimations() {
+  const elementsToAnimate = document.querySelectorAll('.fade-in-up, .service-card, .spec-item');
+  
+  elementsToAnimate.forEach((element, index) => {
     setTimeout(() => {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-      this.classList.remove('assembling');
-      this.textContent = '// פרויקט במעבד...';
-    }, 2000);
-    
-    // Reset button
-    setTimeout(() => {
-      this.textContent = '// התחל פרויקט חדש';
-    }, 4000);
+      element.style.opacity = '1';
+      element.style.transform = 'translateY(0)';
+    }, index * 100);
   });
 }
 
-// Assemble page components with technical drawing effect
-function assemblePageComponents() {
-  const components = document.querySelectorAll('.service-card, .spec-item, .stat-item');
+// Professional CTA Button Interactions
+function initializeCTAInteractions() {
+  const ctaButton = document.getElementById('ctaButton');
   
-  components.forEach((component, index) => {
-    setTimeout(() => {
-      // Add technical drawing lines before component appears
-      addTechnicalLines(component);
+  if (ctaButton) {
+    ctaButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Professional assembly animation
+      this.style.transform = 'scale(0.95)';
+      this.style.background = 'linear-gradient(135deg, var(--assembly-blue), var(--accent-color))';
+      
+      // Create assembly particles effect
+      createAssemblyParticles(this);
       
       setTimeout(() => {
-        component.classList.add('assembled');
+        this.style.transform = '';
+        this.style.background = '';
+        
+        // Navigate to contact section
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       }, 300);
-    }, index * 200);
+    });
+  }
+}
+
+// Create professional assembly particles
+function createAssemblyParticles(button) {
+  const particles = [];
+  const rect = button.getBoundingClientRect();
+  
+  for (let i = 0; i < 8; i++) {
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      left: ${rect.left + rect.width / 2}px;
+      top: ${rect.top + rect.height / 2}px;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    `;
+    
+    document.body.appendChild(particle);
+    particles.push(particle);
+    
+    // Animate particles outward
+    setTimeout(() => {
+      const angle = (i / 8) * Math.PI * 2;
+      const distance = 60;
+      particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+      particle.style.opacity = '0';
+    }, 50);
+  }
+  
+  // Remove particles after animation
+  setTimeout(() => {
+    particles.forEach(particle => {
+      if (particle.parentNode) {
+        particle.parentNode.removeChild(particle);
+      }
+    });
+  }, 1000);
+}
+
+// Smooth scroll animations
+function initializeSmoothAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe elements that should animate on scroll
+  const animatedElements = document.querySelectorAll('.fade-in-up, .service-card, .spec-item');
+  animatedElements.forEach(el => observer.observe(el));
+}
+
+// Initialize scroll effects
+function initializeScrollEffects() {
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.floating-element');
+    
+    parallaxElements.forEach((element, index) => {
+      const speed = 0.5 + (index * 0.1);
+      element.style.transform = `translateY(${scrolled * speed}px)`;
+    });
   });
 }
 
